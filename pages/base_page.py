@@ -1,35 +1,33 @@
-from selenium.webdriver.common.by import By
+from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
+MAXTIME = 10
 
 class BasePage:
-  """
-  The Purpose Of A BasePage Is To Contain Methods Common To All Page Objects
-  """
-  def __init__(self, driver):
-    self.driver = driver
 
-  def find(self, *locator):
-    return self.driver.find_element(*locator)
+	def __init__(self, driver):
+		self.driver = driver
 
-  def click(self, locator):
-    self.find(*locator).click()
-    # self.driver.find_element(*locator).click()
+	def wait(self, locator):
+		WebDriverWait(self.driver, MAXTIME).until(EC.presence_of_element_located(locator))
+		return self.driver
 
-  def set(self, locator, value):
-    self.find(*locator).clear()
-    self.find(*locator).send_keys(value)
+	def check_exists_and_find(self, locator):
+		try:
+			self.wait(locator)
+			result = self.driver.find_element(*locator)
+		except NoSuchElementException:
+			return False
+		return result
 
-  def get_text(self, locator):
-    return self.find(*locator).text
+	def check_click(self, locator):
+		self.check_exists_and_find(locator).click()
 
-  def get_title(self):
-    return self.driver.title
+	def check_url(self, url):
+		return WebDriverWait(self.driver, MAXTIME).until(EC.url_to_be(url))
 
-  def click_right_menu_page(self, page_name):
-    # self.click(self.page(page_name))
-    page = By.XPATH, "//aside[@id='column-right']//a[text()=' "+ page_name +"']"
-    self.click(page)
+	def check_child(self, parent_locator, child_locator):
+		childs = self.check_exists_and_find(parent_locator).find_elements(*child_locator)
+		return childs
 
-  # Below Method Allows Us To Click Page, Check If Page Is Visible, & More Actions
-  def page(self, page_name):
-    return By.XPATH, "//aside[@id='column-right']//a[text()=' "+ page_name +"']"
