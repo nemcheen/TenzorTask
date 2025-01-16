@@ -4,44 +4,34 @@ from pages.locators import Locators
 import time
 
 url1 = 'https://sbis.ru/'
-url2 = 'https://saby.ru/contacts'
+# url2 = 'https://saby.ru/contacts'
+target_region_str = 'Камчатский'
+target_url_str = 'kamchatskij'
+
+'<span class="sbis_ru-Region-Chooser__text sbis_ru-link">Свердловская обл.</span>'
+"//h1[text()='Контакты']//parent::div//parent::div//descendant::span[text()='Свердловская обл.' and contains(@class,'Region-Chooser')]"
+'//span[text()="Свердловская обл." and contains(@class,"Region-Chooser")]'
+"//h1[text()='Контакты']//parent::*//parent::*//descendant::*[text()='Свердловская обл.']"
 
 def test_region(driver):
-    page = BasePage(driver)
-    page.driver.get(url1)
-    page.check_click(Locators.contacts_loc)
-    region_block = page.check_exists_and_find(Locators.region).text
-    childs = page.check_child(Locators.partners_block, Locators.one_partner)
-    assert region_block and len(childs) > 1, "\nRegion or partners is empty!!"
-    print(f"\nRegion is {region_block} as expected and Qty of partners is {len(childs)}\n")
-
-def test_change_region(driver):
     page = PartnersPage(driver)
-    page.driver.get(url2)
-    default_region = page.get_partner_name()
+    page.driver.get(url1)
+    page.wait_click(Locators.contacts_loc)
+    region_block = page.wait_and_find(Locators.region).text
+    childs = page.check_child(Locators.partners_block, Locators.one_partner)
+    assert region_block and len(childs) > 1, (f"\nRegion or partners is empty!!,"
+                                              f"\nRegion is {region_block}. Qty of partners is {len(childs)}\n")
+    default_region = page.get_region_name()
     default_partners = page.get_partners_list()
-    print(default_region)
-    print(default_partners)
-    page.change_partner(Locators.target_partner)
-    time.sleep(5)
-    changed_region = page.get_partner_name()
+    page.change_partner(Locators.target_region)
+    changed_region = page.get_region_name()
     changed_partners = page.get_partners_list()
     condition_1 = default_region != changed_region and default_partners != changed_partners
-    if condition_1:
-        print(f"\nRegion changed from '{default_region}' to '{changed_region}'\n")
-    print(changed_region)
-    print(changed_partners)
-    print(page.driver.title)
-    print(page.driver.current_url)
-    condition_2 =  Locators.target_region_str in page.driver.title
-    if condition_2:
-        print(f"\nPage title changed to '{page.driver.title}'\n")
-    condition_3 = Locators.target_region_EN_str in page.driver.current_url
-    if condition_3:
-        print(f"\nPage url is '{page.driver.current_url}'\n")
-
-    assert condition_3 and condition_2 and condition_1, \
-        f"\nSome conditions failed!\n"
+    assert condition_1, f"\nError changing region and getting list pf partners.\nprevious region is '{default_region}'\nnew region is '{changed_region}'"
+    condition_2 =  target_region_str in page.driver.title
+    assert condition_2, f"\nError region title. Page title changed to '{page.driver.title}'"
+    condition_3 = target_url_str in page.driver.current_url
+    assert condition_3, f"\nPage url error. Url after test is'{page.driver.current_url}'"
 
 
 

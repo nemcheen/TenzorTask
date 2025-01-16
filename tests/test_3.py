@@ -7,9 +7,9 @@ url = 'https://sbis.ru/'
 def test_download(driver):
 	page = BasePage(driver)
 	page.driver.get(url)
-	page.check_click(Locators.download_block)
+	page.wait_click(Locators.download_block)
 
-	first_elem = page.check_exists_and_find(Locators.download_container)
+	first_elem = page.wait_and_find(Locators.download_container)
 	second_elem = first_elem.find_element(*Locators.link)
 	file_link = second_elem.get_attribute('href')
 	raw_size = second_elem.text
