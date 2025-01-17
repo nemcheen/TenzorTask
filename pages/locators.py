@@ -1,10 +1,14 @@
 from selenium.webdriver.common.by import By
 
 
-def dynamic_locator(region):
-	compiled_locator = (By.XPATH, f"//h1[text()='Контакты']//parent::*//parent::*//descendant::*[contains(text(),'{region}')]")
+def header_region(name_of_region):
+	compiled_locator = (By.XPATH, f"//*[contains(@class, 'sbis_ru-Region-Chooser__text') and contains(text(), '{name_of_region}')]")
+
 	return compiled_locator
 
+def region_to_choose(name_of_region):
+	compiled_locator = (By.XPATH, f'//*[contains(@id, "popup") and contains(text(), "{name_of_region}")]')
+	return compiled_locator
 
 class Locators:
 	contacts_loc = (By.XPATH, '//a[contains(text(), "Контакты")]')

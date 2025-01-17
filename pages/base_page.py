@@ -13,6 +13,7 @@ class BasePage:
 		WebDriverWait(self.driver, MAXTIME).until(EC.presence_of_element_located(locator))
 		return self.driver
 
+
 	def wait_and_find(self, locator):
 		try:
 			self.wait(locator)
