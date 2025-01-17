@@ -7,15 +7,33 @@ def dynamic_locator(region):
 
 
 class Locators:
-	contacts_loc = (By.XPATH, '//*[@id="container"]/div[2]/div[1]/div[3]/div[4]/ul/li[1]/a')
-	tenzor_banner = (By.XPATH, '//*[@id="contacts_clients"]/div[1]/div/div/div[2]/div/a')
-	power_in_human_block = (By.XPATH, '//*[@id="container"]/div[1]/div/div[5]/div/div/div[1]/div/p[1]')
-	more_link = (By.XPATH, '//div[@id="container"]/div/div/div[5]/div/div/div/div/p[4]/a')
-	parent_div_img = (By.XPATH, '//*[@id="container"]/div[1]/div/div[4]')
-	img = (By.XPATH, './/img')
-	region = (By.XPATH, '//*[@id="container"]/div[1]/div/div[3]/div[2]/div[1]/div/div[2]/span/span')
+	contacts_loc = (By.XPATH, '//a[contains(text(), "Контакты")]')
+
+	tenzor_banner = (By.XPATH, '//*[@id="contacts_clients"]/descendant::a[@href="https://tensor.ru/"]/img')
+	'//*[@id="contacts_clients"]/descendant::a[@title="tensor.ru"]'
+	'//*[@id="contacts_clients"]/descendant::a[@href="https://tensor.ru/"]'
+
+	power_in_human_block = (By.XPATH, '//*[text()="Сила в людях"]')
+	'//*[@id="container"]/div[1]/div/div[5]/div/div/div[1]/div/p[1]'
+
+	more_link = (By.XPATH, '//a[@href="/about" and text()="Подробнее"]')
+	'//div[@id="container"]/div/div/div[5]/div/div/div/div/p[4]/a'
+
+	image = (By.XPATH, '//*[text()="Работаем"]/parent::*/parent::*/descendant::img')
+	'//*[text()="Работаем"]/parent::*/parent::*/descendant::img'
+
+	region_locator = (By.CSS_SELECTOR, ".sbis_ru-Region-Chooser__text")
+	'(By.CSS_SELECTOR, ".sbis_ru-Region-Chooser__text")'
+	'//*[@id="container"]/div[1]/div/div[3]/div[2]/div[1]/div/div[2]/span/span'
+
 	partners_block = (By.XPATH, '//*[@id="contacts_list"]/div/div[2]/div[2]/div/div[2]/div[1]/div[3]')
-	one_partner = (By.XPATH, '//*[@id="contacts_list"]/div/div[2]/div[2]/div/div[2]/div[1]/div[3]/div/div/div/div[1]/div[1]')
+
+
+
+	partner_name = (By.CSS_SELECTOR, '.sbisru-Contacts-List__name')
+	'.sbisru-Contacts-List__name'
+	'<div title="Saby - Камчатка" class="sbisru-Contacts-List__name sbisru-Contacts-List--ellipsis sbisru-Contacts__text--md pb-4 pb-xm-12 pr-xm-32" itemprop="name">Saby - Камчатка</div>'
+
 	target_region = (By.XPATH, '//*[@id="popup"]/div[2]/div/div/div/div/div[2]/div/ul/li[43]/span')
 
 	download_block = (By.XPATH, '//*[@id="container"]/div[2]/div[1]/div[3]/div[3]/ul/li[9]/a')
