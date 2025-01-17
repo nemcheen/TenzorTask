@@ -12,14 +12,15 @@ class PartnersPage(BasePage):
 	def __init__(self, driver):
 		super().__init__(driver)
 
+	def click_hover(self, locator):
+		actions = ActionChains(self.driver)
+		element = self.wait_and_find(locator)
+		actions.move_to_element(element).click().perform()
 
 
 	def change_partner(self, name_of_new_region):
-
-		actions = ActionChains(self.driver)
-		element = self.wait_and_find(LOC.region_locator)
-		actions.move_to_element(element).click().perform()
-		self.wait_click(LOC.target_region) # !
+		self.click_hover(LOC.region_locator)
+		self.wait_click(region_to_choose(name_of_new_region)) # !
 		self.wait_and_find(header_region(name_of_new_region))
 
 		# self.wait_and_find(dynamic_locator(LOC.target_region_str))

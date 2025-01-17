@@ -7,7 +7,7 @@ def header_region(name_of_region):
 	return compiled_locator
 
 def region_to_choose(name_of_region):
-	compiled_locator = (By.XPATH, f'//*[contains(@id, "popup") and contains(text(), "{name_of_region}")]')
+	compiled_locator = (By.XPATH, f'//*[@id="popup"]//descendant::*[contains(text(), "{name_of_region}")]')
 	return compiled_locator
 
 class Locators:
@@ -38,7 +38,7 @@ class Locators:
 	'.sbisru-Contacts-List__name'
 	'<div title="Saby - Камчатка" class="sbisru-Contacts-List__name sbisru-Contacts-List--ellipsis sbisru-Contacts__text--md pb-4 pb-xm-12 pr-xm-32" itemprop="name">Saby - Камчатка</div>'
 
-	target_region = (By.XPATH, '//*[@id="popup"]/div[2]/div/div/div/div/div[2]/div/ul/li[43]/span')
+	# target_region = (By.XPATH, '//*[@id="popup"]/div[2]/div/div/div/div/div[2]/div/ul/li[43]/span')
 
 	download_block = (By.XPATH, '//*[@id="container"]/div[2]/div[1]/div[3]/div[3]/ul/li[9]/a')
 	footer_locator = (By.CSS_SELECTOR, '#container > div.sbisru-Footer.sbisru-Footer__scheme--default > div.sbis_ru-container > div.sbisru-Footer__container')
