@@ -1,7 +1,5 @@
-from pages.base_page import BasePage
 from pages.partners_page import PartnersPage
-from pages.locators import Locators as LOC, region_to_choose
-from pages.locators import header_region
+from pages.locators import Locators as loc
 
 URL = 'https://sbis.ru/'
 target_region_str = 'Камчатский'
@@ -10,9 +8,9 @@ target_url_str = 'kamchatskij'
 def test_region(driver):
     page = PartnersPage(driver)
     page.driver.get(URL)
-    page.wait_click(LOC.contacts_loc)
-    partner_name_str = page.wait_and_find(LOC.region_locator).text
-    list_of_partners = page.driver.find_elements(*LOC.partner_name)
+    page.wait_click(loc.contacts_loc)
+    partner_name_str = page.wait_and_find(loc.region_locator).text
+    list_of_partners = page.driver.find_elements(*loc.partner_name)
     assert partner_name_str and len(list_of_partners) > 1, (f"\nRegion or partners is empty!!,"
                                               f"\nRegion is {partner_name_str}. Qty of partners is {len(list_of_partners)}\n")
     default_region, default_partners = page.get_name_and_list()

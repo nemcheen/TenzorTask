@@ -29,7 +29,7 @@ def download_and_check(file_link, size):
 			for chunk in r.iter_content(chunk_size=32000):
 				if chunk:
 					f.write(chunk)
-	downloaded_size = round(os.path.getsize(full_path), 2)
+	downloaded_size = round(os.path.getsize(full_path) / (1024 * 1024 ), 2)
 	return os.path.exists(full_path) and downloaded_size == size
 
 def get_size_from_page(s):

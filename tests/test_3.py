@@ -8,10 +8,8 @@ def test_download(driver):
 	page = BasePage(driver)
 	page.driver.get(url)
 	page.wait_click(loc.download_block)
-
-	first_elem = page.wait_and_find(loc.download_container)
-	second_elem = first_elem.find_element(*loc.link)
-	file_link = second_elem.get_attribute('href')
-	raw_size = second_elem.text
+	link_element = page.find_any_nested(loc.download_container, loc.link_to_find)[0]
+	file_link = link_element.get_attribute('href')
+	raw_size = link_element.text
 	size = get_size_from_page(raw_size)
 	assert download_and_check(file_link, size), "File downloading fail!"
