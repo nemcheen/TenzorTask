@@ -18,8 +18,8 @@ class PartnersPage(BasePage):
 
 
 	def change_partner(self, name_of_new_region):
-		self.click_hover(loc.region_locator)
-		self.wait_click(region_to_choose(name_of_new_region))
+		self.wait_clickable_and_find(loc.region_locator).click()
+		self.wait_clickable_and_find(region_to_choose(name_of_new_region)).click()
 		self.wait(header_region(name_of_new_region))
 
 	def get_region_name(self):
