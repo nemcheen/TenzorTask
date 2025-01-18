@@ -13,8 +13,7 @@ class Locators:
 	contacts_loc = (By.XPATH, '//a[contains(text(), "Контакты")]')
 
 	work_block = (By.XPATH, '//h2[text()="Работаем"]')
-	image = (By.XPATH, '//*[text()="Работаем"]/parent::*/parent::*/descendant::img')
-	any_image_nested = (By.XPATH, './/descendant::img')
+	image = (By.CSS_SELECTOR, 'img.tensor_ru-About__block3-image')
 
 	tenzor_banner = (By.XPATH, '//*[@id="contacts_clients"]/descendant::a[@href="https://tensor.ru/"]/img')
 	power_in_human_block = (By.XPATH, '//p[contains(text(), "Сила в людях")]')

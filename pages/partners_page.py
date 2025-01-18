@@ -16,7 +16,6 @@ class PartnersPage(BasePage):
 		element = self.wait_clickable_and_find(locator)
 		actions.move_to_element(element).click().perform()
 
-
 	def change_partner(self, name_of_new_region):
 		self.wait_clickable_and_find(loc.region_locator).click()
 		self.wait_clickable_and_find(region_to_choose(name_of_new_region)).click()

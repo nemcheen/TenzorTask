@@ -58,4 +58,20 @@ class BasePage:
 				break
 		return is_any_element_list
 
+	def check_images(self, images):
+		ident = True
+		list_of_sizes = []
+		w, h = None, None
+		for index, img in enumerate(images):
+			width = img.get_attribute("width")
+			height = img.get_attribute("height")
+			list_of_sizes.append(f'img_{index + 1}: w={width}, h={height} / ')
+			if index == 0:
+				w, h = width, height
+				continue
+			elif width != w or height != h:
+				ident = False
+		str_out = ''.join(list_of_sizes)
+		return ident, str_out
+
 
